@@ -1,0 +1,25 @@
+{
+  "name": "certacceptortron",
+  "version": "1.0.0",
+  "description": "Accept all those annoying certs on daft test environments",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/northern-tester/certacceptortron.git"
+  },
+  "keywords": [
+    "annoying",
+    "waste",
+    "of",
+    "time"
+  ],
+  "author": "Ash Winter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/northern-tester/certacceptortron/issues"
+  },
+  "homepage": "https://github.com/northern-tester/certacceptortron#readme"
+}
