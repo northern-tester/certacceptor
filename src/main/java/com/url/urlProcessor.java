@@ -28,6 +28,7 @@ public class urlProcessor {
             URL nextURL = new URL(nextLine);
             processedList.add(nextURL);
         }
+        br.close();
         return processedList;
     }
 }

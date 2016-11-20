@@ -1,3 +1,4 @@
+import com.browser.browserInitialiser;
 import com.url.urlProcessor;
 import org.junit.After;
 import org.junit.Assert;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class certAcceptorTests {
 
     public urlProcessor urls;
+    public browserInitialiser bi;
 
     String validFilename;
     String validBrowser;
@@ -26,6 +28,7 @@ public class certAcceptorTests {
         validBrowser = "Chrome";
         anotherValidBrowser = "Firefox";
         urls = new urlProcessor(validFilename);
+        bi = new browserInitialiser();
     }
 
     @Test
@@ -56,12 +59,24 @@ public class certAcceptorTests {
 
     @Test
     public void passAValidBrowser(){
+        //Check that the browser I wish to use is valid
+        String[] desiredBrowsers = new String[]{validBrowser};
+        Boolean isBrowserValid = bi.checkBrowser(desiredBrowsers);
+        Assert.assertTrue(isBrowserValid);
+    }
 
+    @Test
+    public void passAnInvalidBrowser(){
+        String[] desiredBrowsers = new String[]{validBrowser+"blah"};
+        Boolean isBrowserValid = bi.checkBrowser(desiredBrowsers);
+        Assert.assertFalse(isBrowserValid);
     }
 
     @Test
     public void moreThanOneValidBrowser(){
-
+        String[] desiredBrowsers = new String[]{validBrowser, anotherValidBrowser};
+        Boolean areBrowsersValid = bi.checkBrowser(desiredBrowsers);
+        Assert.assertTrue(areBrowsersValid);
     }
 
     @After
