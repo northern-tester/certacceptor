@@ -1,5 +1,6 @@
 package com.url;
-import java.io.File;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 public class urlProcessor {
 
     public File file;
+    public ArrayList<URL> processedList;
 
     public urlProcessor(String validFilename) {
         file = new File(validFilename);
@@ -17,7 +19,15 @@ public class urlProcessor {
         return file.getAbsolutePath();
     }
 
-    public ArrayList<String> getProcessedList() {
+    public ArrayList<URL> getProcessedList() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        processedList = new ArrayList<URL>();
+        while(true){
+            String nextLine = br.readLine();
+            if(nextLine == null) break;
+            URL nextURL = new URL(nextLine);
+            processedList.add(nextURL);
+        }
         return processedList;
     }
 }

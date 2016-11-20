@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -35,19 +38,20 @@ public class certAcceptorTests {
     }
 
     @Test
-    public void checkReturnedArrayofURLs(){
+    public void checkReturnedArrayofURLs() throws MalformedURLException {
         //Declare an array to check against
-        ArrayList<String> expectedData = new ArrayList<String>();
-        expectedData.add("https://www.google.co.uk");
-        expectedData.add("https://www.bbc.co.uk");
+        ArrayList<URL> expectedData = new ArrayList<URL>();
+        expectedData.add(new URL("https://www.google.co.uk"));
+        expectedData.add(new URL("https://www.bbc.co.uk"));
         //Get an array of urls needed back
-        ArrayList<String> actualData = new ArrayList<String>();
-        actualData = urls.getProcessedList();
+        ArrayList<URL> actualData = new ArrayList<URL>();
+        try {
+            actualData = urls.getProcessedList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //Assert against those arrays
         Assert.assertArrayEquals(expectedData.toArray(), actualData.toArray());
-
-
-
     }
 
     @Test
