@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by awi40 on 16/11/2016.
  */
-public class certAcceptorTests {
+public class certAcceptorConfigTests {
 
     public urlProcessor urls;
     public browserInitialiser bi;
@@ -60,28 +60,43 @@ public class certAcceptorTests {
     @Test
     public void passAValidBrowser(){
         //Check that the browser I wish to use is valid
-        String[] desiredBrowsers = new String[]{validBrowser};
+        ArrayList<String> desiredBrowsers = new ArrayList<String>();
+        desiredBrowsers.add(validBrowser);
         Boolean isBrowserValid = bi.checkBrowser(desiredBrowsers);
         Assert.assertTrue(isBrowserValid);
     }
 
     @Test
     public void passAnInvalidBrowser(){
-        String[] desiredBrowsers = new String[]{validBrowser+"blah"};
+        ArrayList<String> desiredBrowsers = new ArrayList<String>();
+        desiredBrowsers.add(validBrowser+"blah");
         Boolean isBrowserValid = bi.checkBrowser(desiredBrowsers);
         Assert.assertFalse(isBrowserValid);
     }
 
     @Test
     public void moreThanOneValidBrowser(){
-        String[] desiredBrowsers = new String[]{validBrowser, anotherValidBrowser};
+        ArrayList<String> desiredBrowsers = new ArrayList<String>();
+        desiredBrowsers.add(validBrowser);
+        desiredBrowsers.add(anotherValidBrowser);
+        Boolean areBrowsersValid = bi.checkBrowser(desiredBrowsers);
+        Assert.assertTrue(areBrowsersValid);
+    }
+
+    @Test
+    public void requestBrowsersInAnyOrder(){
+        ArrayList<String> desiredBrowsers = new ArrayList<String>();
+        desiredBrowsers.add(anotherValidBrowser);
+        desiredBrowsers.add(validBrowser);
         Boolean areBrowsersValid = bi.checkBrowser(desiredBrowsers);
         Assert.assertTrue(areBrowsersValid);
     }
 
     @After
     public void teardown(){
-
+        validBrowser = null;
+        anotherValidBrowser = null;
+        validFilename = null;
     }
 
 
