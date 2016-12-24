@@ -1,5 +1,6 @@
 import com.browser.DriverFactory;
 import com.browser.browserInitialiser;
+import com.browser.browserInteractor;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,18 +17,20 @@ import java.util.ArrayList;
  */
 public class certAcceptorBrowserTests {
 
-    public browserInitialiser bi;
+    public browserInitialiser biser;
     public URL url;
     public ArrayList<String> desiredBrowsers;
     public WebDriver driver;
     public JavascriptExecutor js;
     public String pageTitle;
+    public browserInteractor bitor;
 
 
     @Before
     public void setup() throws MalformedURLException {
-        bi = new browserInitialiser();
-        desiredBrowsers = new ArrayList<String>(bi.getValidBrowsers());
+        biser = new browserInitialiser();
+        bitor = new browserInteractor();
+        desiredBrowsers = new ArrayList<String>(biser.getValidBrowsers());
         url = new URL("https", "bbc.co.uk", "/news");
         pageTitle = "Home - BBC News";
     }
@@ -65,8 +68,11 @@ public class certAcceptorBrowserTests {
     }
 
     @Test
-    public void acceptCertificatesChromeDriver(){
-
+    public void acceptCertificatesChromeDriver() throws MalformedURLException {
+        url = new URL("https", "pcwebshop.co.uk", "/");
+        driver = DriverFactory.getDriver(desiredBrowsers.get(0), bitor.acceptChromeCertificates());
+        driver.get(String.valueOf(url));
+        Assert.assertTrue(driver.getCurrentUrl().endsWith("co.uk"));
     }
 
     @Test
@@ -86,7 +92,7 @@ public class certAcceptorBrowserTests {
         } catch (Exception e) {
             System.out.println(e + "- was not a selenium test");
         }
-
+        url = null;
     }
 
 }
